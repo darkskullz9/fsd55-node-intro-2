@@ -1,41 +1,34 @@
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
-import songs from './data/songs.js';
+import songsRouter from './routes/songsRouter.js';
+import mongoose from 'mongoose';
 
 const app = express();
+
 const PORT = process.env.PORT;
+
 app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
+app.use(songsRouter);
+
+
 app.get('/', (request, response) => {
     return response.send('Welcome to my API');
 });
 
-app.get('/songs', (req, res) => {
-    return res.json(songs);
-});
+const mongoDB = process.env.MONGO_URL
+mongoose.connect(mongoDB);
 
-app.get('/songs/:songID', (req, res) => {
-    let songID = req.params.songID
-    let song = songs.find(element => element.id == songID)
-    return res.json(song)
-});
+const db = mongoose.connection;
 
-app.post('/songs', (req, res) => {
-    let newsong = {
-        id: songs.length + 1,
-        title: req.body.title,
-        artist: req.body.artist
-    }
-    songs.push(newsong)
-    return res.json(newsong)
-})
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-app.get('/users', (req, res) => {
-    return res.send('Hello users');
-});
+
+
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT} 🟢`));
