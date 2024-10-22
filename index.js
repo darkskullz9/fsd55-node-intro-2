@@ -2,6 +2,7 @@ import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
 import songsRouter from './routes/songsRouter.js';
+import usersRouter from './routes/usersRouter.js';
 import mongoose from 'mongoose';
 
 const app = express();
@@ -14,14 +15,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
-app.use(songsRouter);
+app.use(songsRouter, usersRouter);
 
 
 app.get('/', (request, response) => {
     return response.send('Welcome to my API');
 });
 
-const mongoDB = process.env.MONGO_URL
+const mongoDB = process.env.MONGO_URL;
 mongoose.connect(mongoDB);
 
 const db = mongoose.connection;
