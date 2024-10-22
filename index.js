@@ -1,7 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
-import songs from './data/songs';
+import songs from './data/songs.js';
 
 const app = express();
 const PORT = process.env.PORT;
