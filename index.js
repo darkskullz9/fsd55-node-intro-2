@@ -48,7 +48,7 @@ app.post('/songs', (req, res) => {
     let newsong = {
         id: songs.length + 1,
         title: req.body.title,
-        genre: req.body.genre
+        artist: req.body.artist
     }
     songs.push(newsong)
     return res.json(newsong)
