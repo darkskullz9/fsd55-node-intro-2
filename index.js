@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
+import songs from './data/songs';
 
 const app = express();
 const PORT = process.env.PORT;
@@ -8,27 +9,6 @@ app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-const songs = [
-    {
-        id: 1,
-        title: 'Welcome to Jamrock',
-        artist: 'Damian Marley',
-        link: 'https://souncloud.com/'
-    },
-    {
-        id: 2,
-        title: 'La vie qu&apos;on mène',
-        artist: 'Krys',
-        link: 'https://souncloud.com/'
-    },
-    {
-        id: 3,
-        title: 'Gwadada',
-        artist: 'Admiral-T',
-        link: 'https://souncloud.com/'
-    }
-]
 
 app.get('/', (request, response) => {
     return response.send('Welcome to my API');
